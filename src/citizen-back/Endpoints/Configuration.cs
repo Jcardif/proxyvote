@@ -1,9 +1,6 @@
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -13,10 +10,10 @@ namespace ProxyVote.Citizen.Back.Endpoints;
 
 public static class Configuration
 {
-    [FunctionName("Configuration")]
+    [Function("Configuration")]
     public static IActionResult Run(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "config/client-config.json")] HttpRequest req,
-        ExecutionContext context,
+        Microsoft.Azure.WebJobs.ExecutionContext context,
         ILogger log)
     {
         // TODO: ugly, and not using DI

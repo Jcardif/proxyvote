@@ -16,8 +16,11 @@ using TestDataGenerator;
 
 AnsiConsole.Write(
     new FigletText("ProxyVote")
-        .LeftAligned()
-        .Color(Color.Blue));
+    {
+        Justification = Justify.Left, 
+        Color = Color.Blue
+    });
+
 AnsiConsole.MarkupLine("[bold]ProxyVote Test Data Generator[/]");
 
 // Setup Bogus

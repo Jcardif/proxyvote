@@ -4,15 +4,14 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 using ProxyVote.Core.Entities;
 using ProxyVote.Core.Services;
 using ProxyVote.IdentityAuthority.Core;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 
 namespace ProxyVote.Citizen.Back.Endpoints;
 
@@ -27,7 +26,7 @@ public class Registrations
         _registrationIdentityService = registrationIdentityService;
     }
 
-    [FunctionName(nameof(SubmitRegistration))]
+    [Function(nameof(SubmitRegistration))]
     [OpenApiOperation(nameof(SubmitRegistration), tags: new[] { "application" }, Description = "Insert a new proxy application in the system.")]
     [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(ProxyApplication), Required = true)]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The OK response")]
@@ -43,7 +42,7 @@ public class Registrations
     }
 
 
-    [FunctionName(nameof(GetRegistrationById))]
+    [Function(nameof(GetRegistrationById))]
     [OpenApiOperation(nameof(GetRegistrationById), tags: new[] { "application" }, Description = "Get a application by Id.")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ProxyApplication), Description = "The requested application")]
     [OpenApiParameter("department",In = ParameterLocation.Path, Required = true, Type = typeof(string))]
@@ -61,7 +60,7 @@ public class Registrations
 
 
 
-    [FunctionName(nameof(ValidateRegistration))]
+    [Function(nameof(ValidateRegistration))]
     [OpenApiOperation(nameof(ValidateRegistration), tags: new[] { "application" }, Description = "Validate a specific application.")]
     [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.OK)]
     [OpenApiParameter("department", In = ParameterLocation.Path, Required = true, Type = typeof(string))]
@@ -84,7 +83,7 @@ public class Registrations
 
 
 
-    [FunctionName(nameof(TestRegistration))]
+    [Function(nameof(TestRegistration))]
     [OpenApiOperation(nameof(TestRegistration), tags: new[] { "application" }, Description = "Test.")]
     [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ProxyApplication), Description = "The OK response")]
     public IActionResult TestRegistration(

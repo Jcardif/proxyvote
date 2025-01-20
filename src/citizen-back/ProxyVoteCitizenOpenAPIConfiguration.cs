@@ -37,6 +37,7 @@ namespace ProxyVote.Citizen.Back
             set => throw new NotImplementedException();
         }
 
+        public List<IDocumentFilter> DocumentFilters { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         OpenApiVersionType IOpenApiConfigurationOptions.OpenApiVersion { get => OpenApiVersionType.V3; set => throw new NotImplementedException(); }
         bool IOpenApiConfigurationOptions.IncludeRequestingHostName { get => true; set => throw new NotImplementedException(); }
         bool IOpenApiConfigurationOptions.ForceHttp { get => true; set => throw new NotImplementedException(); }
